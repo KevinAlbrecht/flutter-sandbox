@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterSandbox/layouts/index.dart';
+import './injections.dart' as injector;
 
 void main() {
+  injector.setupLocator();
   runApp(MyApp());
 }
 
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MoviesLayout(),
     );
   }
 }
