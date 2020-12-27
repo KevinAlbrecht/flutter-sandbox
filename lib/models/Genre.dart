@@ -4,7 +4,7 @@ class Genre {
   final int id;
   final String title;
 
-  Genre({
+  const Genre({
     @required this.id,
     @required this.title,
   });

@@ -10,7 +10,7 @@ class Movie {
   final String overview;
   final String posterPath;
 
-  Movie({
+  const Movie({
     @required this.id,
     @required this.title,
     @required this.voteAverage,

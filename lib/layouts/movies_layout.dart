@@ -14,12 +14,17 @@ class MoviesLayout extends StatefulWidget {
 
 class _MoviesLayoutState extends State<MoviesLayout> {
   final MovieApiService _movieApi = locator<MovieApiService>();
-  List<Genre> genres = [];
+  List<ListTile> genresWidgets = [];
 
   Future<void> loadGenres() async {
     final result = await _movieApi.getGenres();
     setState(() {
-      genres = result.data;
+      genresWidgets = result.data
+          .map((e) => new ListTile(
+                onTap: () => print(e.title + e.id.toString()),
+                title: Text(e.title),
+              ))
+          .toList();
     });
   }
 
@@ -31,6 +36,33 @@ class _MoviesLayoutState extends State<MoviesLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text(genres.length.toString()));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Movies"),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.all(0.0),
+          children: [
+            Container(
+              height: 70.0,
+              child: DrawerHeader(
+                padding: EdgeInsets.only(top: 10.0),
+                margin: EdgeInsets.all(0),
+                child: Text(
+                  'Genres',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+            ),
+            ...genresWidgets
+          ],
+        ),
+      ),
+      body: Center(
+        child: Text(genresWidgets.length.toString()),
+      ),
+    );
   }
 }
